@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Блог</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Лента новостей{% endblock %}
+{% block content %}
 <h1>Лента новостей</h1>
+{% if user.is_authenticated %}
+    <a href="{% url 'create_post' %}">Новый пост</a>
+{% endif %}
 {% for post in posts %}
     <div>
         <a href="{% url 'post_details' post.id %}">{{ post.title }}</a>
+        <small>{{ post.created_at }}</small>
     </div>
 {% endfor %}
-</body>
-</html>
+{% endblock %}
