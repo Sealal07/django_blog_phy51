@@ -9,6 +9,7 @@
 {% for post in posts %}
     <div>
         <a href="{% url 'post_details' post.id %}">{{ post.title }}</a>
+        <h4>Автор: {{ post.author }}</h4>
         <small>Опубликован {{ post.created_at|smart_time }}</small>
     </div>
 {% endfor %}

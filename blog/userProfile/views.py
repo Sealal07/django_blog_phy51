@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
     context = {
         'profile': request.user.profile,
     }
@@ -14,6 +15,7 @@ def profile(request):
 
 @login_required
 def profile_edit(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
