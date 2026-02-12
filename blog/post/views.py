@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
 from .forms import CommentForm, PostCreateForm
 from  django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 def post_list(request):
     posts = Post.objects.all()
@@ -54,13 +55,18 @@ def edit_post(request, post_id):
 
 @login_required
 def delete_post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id, author=request.user)
+    post = get_object_or_404(Post, pk=post_id)
+    is_moderator = hasattr(request.user, 'profile') and request.user.profile.is_moderator
     if request.method == 'POST':
-        if 'confirm_delete' in request.POST:
-            post.delete()
-            return redirect('post_list')
+        if request.user == post.author or is_moderator:
+            if 'confirm_delete' in request.POST:
+                post.delete()
+                return redirect('post_list')
+            else:
+                return redirect('post_details', post_id=post.id)
         else:
-            return redirect('post_details', post_id=post.id)
+            raise PermissionDenied
+
     comments = post.comments.all().order_by('-created_at')
     form = CommentForm()
     return render(request, 'post/post_details.html',

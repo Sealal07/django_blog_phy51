@@ -9,7 +9,7 @@
         <small>Опубликован {{ post.created_at|smart_time }}</small>
     </div>
     <br>
-    {% if post.author == user %}
+    {% if post.author == user or user.profile.is_moderator %}
         {% if delete_confirm %}
             <div>
                 <p>Вы уверены?</p>

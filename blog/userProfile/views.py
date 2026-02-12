@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 def profile(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
     context = {
-        'profile': request.user.profile,
+        'profile': profile,
     }
     return render(request, 'userProfile/profile.html',
                              context)
@@ -18,7 +18,7 @@ def profile_edit(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        p_form = ProfileForm(request.POST, request.FILES, instance=profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
