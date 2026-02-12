@@ -11,9 +11,14 @@ class Profile(models.Model):
     is_moderator = models.BooleanField(default=False)
 
     def is_currently_blocked(self):
-        if self.is_blocked:
-            if self.blocked_until and timezone.now() > self.blocked_until:
-                return False
+        if not self.is_blocked:
+            return False
+        if self.blocked_until and timezone.now() > self.blocked_until:
+            self.is_blocked = False
+            self.blocked_until = None
+            self.save()
+            return False
+        return True
 
     def __str__(self):
         return self.user.username
