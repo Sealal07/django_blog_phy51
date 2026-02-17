@@ -1,11 +1,47 @@
 {% extends 'base.html' %}
-{% block title %}Добавление поста{% endblock %}
+{% block title %}Новый пост{% endblock %}
+
 {% block content %}
-    <h1>Создать пост</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Опубликовать</button>
-        <a href="{% url 'post_list' %}">Отмена</a>
-    </form>
+<div class="max-w-2xl mx-auto">
+    <a href="{% url 'post_list' %}" class="inline-flex items-center text-slate-400 hover:text-emerald-400 mb-6 transition-colors group">
+        <span class="mr-2 group-hover:-translate-x-1 transition-transform">←</span> Вернуться к ленте
+    </a>
+
+    <div class="bg-slate-800/40 border border-slate-700 p-8 md:p-10 rounded-[2.5rem] shadow-2xl backdrop-blur-sm">
+        <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/20">
+                ✍️
+            </div>
+            <div>
+                <h1 class="text-3xl font-black tracking-tight">Создать пост</h1>
+                <p class="text-slate-400 text-sm">Поделись своими мыслями с миром</p>
+            </div>
+        </div>
+
+        <form method="post" class="space-y-5">
+            {% csrf_token %}
+
+            <div class="django-form-container">
+                {% for field in form %}
+                    <div class="flex flex-col gap-2 mb-4">
+                        <label class="text-sm font-bold text-slate-400 ml-1">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <p class="text-rose-400 text-xs mt-1">{{ field.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <button type="submit" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-black py-4 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 cursor-pointer active:scale-95">
+                    Опубликовать поток
+                </button>
+                <a href="{% url 'post_list' %}" class="flex-1 bg-slate-700 hover:bg-slate-600 text-center font-bold py-4 rounded-2xl transition-all">
+                    Отмена
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
