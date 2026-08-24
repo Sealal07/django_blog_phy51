@@ -2,32 +2,32 @@
 {% block title %}Вход{% endblock %}
 
 {% block content %}
-<div class="max-w-md mx-auto mt-12">
-    <div class="bg-slate-800/40 p-10 rounded-[2.5rem] border border-slate-700 shadow-2xl">
-        <h1 class="text-3xl font-black mb-2 text-center">С возвращением!</h1>
-        <p class="text-slate-400 text-center mb-8">Войдите, чтобы продолжить поток</p>
+<div>
+    <div>
+        <h1>С возвращением!</h1>
+        <p>Войдите, чтобы продолжить поток</p>
 
         {% if messages %}
             {% for message in messages %}
-                <div class="bg-rose-500/10 border border-rose-500/50 text-rose-400 p-4 rounded-2xl mb-6 text-sm">
+                <div>
                     {{ message }}
                 </div>
             {% endfor %}
         {% endif %}
 
-        <form method="post" class="flex flex-col gap-4">
+        <form method="post">
             {% csrf_token %}
-            <div class="space-y-4">
+            <div>
                 {{ form }}
             </div>
-            <button type="submit" class="mt-4 w-full bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-black py-4 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 cursor-pointer">
+            <button type="submit">
                 Войти
             </button>
         </form>
 
-        <div class="mt-8 pt-6 border-t border-slate-700 text-center">
-            <span class="text-slate-500 text-sm">Еще нет аккаунта?
-                <a href="{% url 'register' %}" class="text-emerald-400 hover:underline font-bold ml-1">Зарегистрироваться</a>
+        <div>
+            <span>Еще нет аккаунта?
+                <a href="{% url 'register' %}">Зарегистрироваться</a>
             </span>
         </div>
     </div>

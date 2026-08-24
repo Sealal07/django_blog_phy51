@@ -2,30 +2,30 @@
 {% block title %}Профиль{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto">
-    <div class="relative bg-slate-800/40 rounded-[3rem] p-10 border border-slate-700 overflow-hidden text-center">
-        <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
+<div>
+    <div>
+        <div></div>
 
-        <div class="relative z-10">
+        <div>
             {% if profile.avatar %}
-                <img src="{{ profile.avatar.url }}" class="w-32 h-32 rounded-3xl mx-auto object-cover border-4 border-slate-700 shadow-2xl mb-6">
+                <img src="{{ profile.avatar.url }}" alt="Аватар">
             {% else %}
-                <div class="w-32 h-32 rounded-3xl mx-auto bg-slate-700 flex items-center justify-center text-4xl mb-6 border-4 border-slate-600">
+                <div>
                     👤
                 </div>
             {% endif %}
 
-            <h1 class="text-4xl font-black mb-2">{{ user.username }}</h1>
+            <h1>{{ user.username }}</h1>
 
-            <div class="bg-slate-900/50 rounded-2xl p-6 my-6 border border-slate-700/50">
+            <div>
                 {% if profile.bio %}
-                    <p class="text-slate-300 italic">"{{ profile.bio }}"</p>
+                    <p>"{{ profile.bio }}"</p>
                 {% else %}
-                    <p class="text-slate-500 italic">Тут пока пусто. Расскажите о себе!</p>
+                    <p>Тут пока пусто. Расскажите о себе!</p>
                 {% endif %}
             </div>
 
-            <a href="{% url 'profile_edit' %}" class="inline-flex items-center gap-2 bg-slate-100 hover:bg-white text-slate-900 px-6 py-3 rounded-2xl font-bold transition-all cursor-pointer">
+            <a href="{% url 'profile_edit' %}">
                 ⚙️ Редактировать профиль
             </a>
         </div>

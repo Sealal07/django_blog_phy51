@@ -3,36 +3,36 @@
 {% block title %}Лента новостей{% endblock %}
 
 {% block content %}
-<div class="flex justify-between items-center mb-10">
-    <h1 class="text-4xl font-extrabold tracking-tight">Свежий поток</h1>
+<div>
+    <h1>Свежий поток</h1>
     {% if user.is_authenticated %}
-        <a href="{% url 'create_post' %}" class="bg-emerald-500 hover:bg-emerald-400 text-slate-900 px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-2">
+        <a href="{% url 'create_post' %}">
             <span>+</span> Новый пост
         </a>
     {% endif %}
 </div>
 
-<div class="grid gap-6">
+<div>
     {% for post in posts %}
-    <article class="group bg-slate-800/50 border border-slate-700/50 p-6 rounded-3xl hover:border-emerald-500/50 transition-all hover:shadow-2xl hover:shadow-emerald-500/5">
-        <div class="flex justify-between items-start mb-4">
-            <a href="{% url 'post_details' post.id %}" class="text-2xl font-bold group-hover:text-emerald-400 transition-colors">
+    <article>
+        <div>
+            <a href="{% url 'post_details' post.id %}">
                 {{ post.title }}
             </a>
-            <span class="text-xs font-mono text-slate-500 bg-slate-900 px-3 py-1 rounded-full uppercase tracking-wider">
+            <span>
                 {{ post.created_at|smart_time }}
             </span>
         </div>
-        <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-xs">
+        <div>
+            <div>
                 {{ post.author.username|slice:":1"|upper }}
             </div>
-            <h4 class="text-slate-400 text-sm">Автор: <span class="text-slate-200 font-semibold">{{ post.author }}</span></h4>
+            <h4>Автор: <span>{{ post.author }}</span></h4>
         </div>
     </article>
     {% empty %}
-    <div class="text-center py-20 bg-slate-800/20 rounded-3xl border-2 border-dashed border-slate-700">
-        <p class="text-slate-500">Здесь пока пусто. Станьте первым, кто создаст пост!</p>
+    <div>
+        <p>Здесь пока пусто. Станьте первым, кто создаст пост!</p>
     </div>
     {% endfor %}
 </div>
